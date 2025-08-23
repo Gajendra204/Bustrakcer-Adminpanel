@@ -1,20 +1,34 @@
 import axiosInstance from "./axiosConfig";
 import type { LoginData, RegisterData} from "./types";
+import * as Sentry from "@sentry/react";
 
 export const loginAdmin = async (data: LoginData) => {
   try {
     const response = await axiosInstance.post("/auth/admin/login", data);
-    const token = response.data.data.token;    
+    
+    const token = response?.data?.data?.token;    
+
+    if (!token) {
+    throw new Error("Login failed: Token not received.");
+}
+
     localStorage.setItem("busTrackerAdminToken", token); 
     return response.data;
   } catch (error) {
-    console.error("Login error:", error);
+    console.error("Login error", error)
+    Sentry.captureException(error);
     throw error;
   }
 };
 
 export const registerAdmin = async (data: RegisterData) => {
+  try{
   const response = await axiosInstance.post("/auth/admin/register", data);
   return response.data;
+  } catch (error) {
+    console.error("Registration error", error);
+     Sentry.captureException(error);
+    throw error;
+  }
 };
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import StudentFormFields from "./StudentFormFields";
 import { useStudentForm } from "./useStudentForm";
+import * as Sentry from "@sentry/react";
 
 interface StudentFormProps {
   onCancel: () => void;
@@ -21,6 +22,12 @@ const StudentForm = ({ onCancel, onSubmit }: StudentFormProps) => {
       await onSubmit(formData);
     } catch (err) {
       console.error("Submission error:", err);
+       Sentry.captureException(err, {
+            extra: {
+            operation: "Submission error",
+            context: "Submission error"
+          }
+        });
     } finally {
       setIsSubmitting(false);
     }

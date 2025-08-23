@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import {API_BASE_URL} from "../../api/axiosConfig.ts";
+import * as Sentry from "@sentry/react";
 
 const createCustomMarker = () => {
   return L.divIcon({
@@ -47,7 +48,13 @@ export const MapLocationPicker = ({
         onLocationSelect(newPos[0], newPos[1]);
       }
     } catch (error) {
-      console.error("Search failed:", error);
+      console.error("Search Failed", error);
+      Sentry.captureException(error, {
+  extra: {
+    operation: "search",
+    context: "Search failed"
+  }
+});
     }
   };
 

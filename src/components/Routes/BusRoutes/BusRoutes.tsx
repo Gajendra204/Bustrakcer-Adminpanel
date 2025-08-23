@@ -7,6 +7,7 @@ import RouteForm from "./RouteForm";
 import DeleteConfirmationModal from "../../Shared/DeleteConfirmationModal";
 import { useRouteAssignments } from "../../../hooks/useRouteAssignments";
 import RoutesTable from "./RoutesTable";
+import * as Sentry from "@sentry/react";
 
 const BusRoutes = () => {
   const { routes, isLoading, error, addRoute, removeRoute, assignBus } =
@@ -30,6 +31,13 @@ const BusRoutes = () => {
       setShowAddForm(false);
     } catch (err) {
       console.error("Failed to add route:", err);
+      Sentry.captureException(err, {
+      extra: {
+      operation: "Route",
+      context: "Failed to add route"
+    }
+  });
+      
     }
   };
 
@@ -40,6 +48,12 @@ const BusRoutes = () => {
         await assignBus(routeId, { busId });
       } catch (err) {
         console.error("Failed to assign bus:", err);
+        Sentry.captureException(err, {
+      extra: {
+      operation: "Bus",
+      context: "Failed to assign bus"
+    }
+  });
       }
     }
   };

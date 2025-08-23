@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { User, School, Mail, Lock } from "lucide-react";
 import { registerAdmin } from "../../api/auth";
 import SubmitButton from "../Shared/SubmitButton";
+import * as Sentry from "@sentry/react";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -40,10 +41,14 @@ const RegisterForm = () => {
         navigate("/login");
       }, 2000);
     } catch (error: any) {
-      console.error(
-        "Registration error:",
-        error.response?.data || error.message
-      );
+      console.error("Registration failed", error);
+      Sentry.captureException(error, {
+      extra: {
+        operation: "registration_submit",
+        email: formData.email,
+        errorDetails: error.response?.data || error.message
+      }
+    });
       toast.error(
         error.response?.data?.message ||
           "Registration failed. Please try again."
