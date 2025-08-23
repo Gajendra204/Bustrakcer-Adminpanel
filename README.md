@@ -1,69 +1,121 @@
-# React + TypeScript + Vite
+# 🚌 Bus Tracker Admin Panel
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comprehensive web-based administration panel for managing school bus tracking systems. Built with React, TypeScript, and modern web technologies to provide real-time monitoring and management capabilities for school transportation.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+### 🎯 Core Management Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Dashboard Overview**: Real-time statistics and system health monitoring
+- **Bus Management**: Add, edit, delete, and track school buses
+- **Driver Management**: Manage driver profiles, assignments, and contact information
+- **Route Management**: Create and manage bus routes with interactive maps
+- **Parent Management**: Handle parent accounts and student assignments
+- **Student Management**: Organize students by routes and manage pickup/drop-off locations
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🛠️ Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Frontend Framework
+
+- **React 19.1.0** 
+- **TypeScript** 
+- **Vite** 
+
+### UI & Styling
+
+- **Tailwind CSS 4.1.11** 
+- **Lucide React** 
+- **React Hot Toast** 
+
+### State Management & Data Fetching
+
+- **TanStack React Query 5.83.0** - Powerful data synchronization
+- **Axios** - HTTP client for API communication
+- **React Router DOM 7.6.2** - Client-side routing
+
+### Maps & Location
+
+- **Leaflet 1.9.4** - Interactive maps
+- **React Leaflet 5.0.0** - React components for Leaflet
+- **Leaflet Geosearch** - Location search functionality
+
+### Backend Integration
+
+- **Firebase 11.10.0** - Real-time database and authentication
+- **Custom REST API** - Node.js/Express backend integration
+
+## 📋 Prerequisites
+
+Before running this project, make sure you have the following installed:
+
+- **Node.js** (v18.0.0 or higher)
+- **npm** (v8.0.0 or higher) or **yarn** (v1.22.0 or higher)
+- **Git** for version control
+
+### System Requirements
+
+- Modern web browser (Chrome, Firefox, Safari, Edge)
+- Internet connection for map services and API communication
+
+## 🚀 Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone <repository-url>
+   cd bustracker-admin
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. **Set up environment variables** (see [Environment Setup](#environment-setup))
+
+4. **Start the development server**
+
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+5. **Open your browser**
+   Navigate to `http://localhost:5173` to view the application
+
+## 🔧 Environment Setup
+
+Create a `.env` file in the root directory with the following variables:
+
+```env
+# Firebase Configuration
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_DATABASE_URL=https://your_project.firebaseio.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+VITE_MEASUREMENT_ID=your_measurement_id
+
+# API Configuration
+VITE_API_BASE_URL=http://localhost:3000/api
+VITE_API_TIMEOUT=10000
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+###  Script to run the server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Start development server with hot reload
+npm run dev
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+
+
