@@ -10,7 +10,7 @@ export interface RegisterData {
   password: string;
 }
 
-export type AdminProfile = {
+export interface AdminProfile {
   name: string;
   schoolName: string;
   email: string;
