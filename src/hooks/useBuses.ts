@@ -22,10 +22,7 @@ export const useBuses = () => {
     refetch: refetchBuses
   } = useQuery({
     queryKey: ['buses'], 
-    queryFn: async () => {
-      const response = await getAllBuses();
-      return response.data || [];
-    }, 
+    queryFn: getAllBuses
   });
 
   // Fetch Drivers
@@ -36,23 +33,12 @@ export const useBuses = () => {
     refetch: refetchDrivers
   } = useQuery({
     queryKey: ['drivers'],
-    queryFn: async () => {
-      const response = await getAllDrivers();
-      return response.data || [];
-    },
+    queryFn: getAllDrivers
   });
 
   // Create Bus
   const createBusMutation = useMutation({
-    mutationFn: async (busData: {
-      name: string;
-      busNumber: string;
-      capacity: number;
-      driverId: string;
-    }) => {
-      const response = await createBus(busData);
-      return response.data;
-    },
+    mutationFn: createBus,
     onSuccess: (newBus) => {
       queryClient.setQueryData(['buses'], (oldBuses: IBus[] = []) => [
         ...oldBuses,
@@ -67,25 +53,25 @@ export const useBuses = () => {
 
   // Update Bus
   const updateBusMutation = useMutation({
-    mutationFn: async ({ id, data }: { id: string; data: any }) => {
-      const response = await updateBus(id, {
-        name: data.name,
-        busNumber: data.number,
-        capacity: Number(data.capacity),
-        driverId: data.driverId
-      });
-      return response.data;
-    },
-    onSuccess: (updatedBus, variables) => {
-      queryClient.setQueryData(['buses'], (oldBuses: IBus[] = []) =>
-        oldBuses.map(bus => bus._id === variables.id ? updatedBus : bus)
-      );
-      toast.success("Bus updated successfully");
-    },
-    onError: () => {
-      toast.error("Failed to update bus");
-    },
-  });
+  mutationFn: async ({ id, data }: { id: string; data: any }) => {
+    const updatedBus = await updateBus(id, {
+      name: data.name,
+      busNumber: data.number,
+      capacity: Number(data.capacity),
+      driverId: data.driverId
+    });
+    return updatedBus; 
+  },
+  onSuccess: (updatedBus, variables) => {
+    queryClient.setQueryData(['buses'], (oldBuses: IBus[] = []) =>
+      oldBuses.map(bus => bus._id === variables.id ? updatedBus : bus)
+    );
+    toast.success("Bus updated successfully");
+  },
+  onError: () => {
+    toast.error("Failed to update bus");
+  },
+});
 
   // Delete Bus
   const deleteBusMutation = useMutation({

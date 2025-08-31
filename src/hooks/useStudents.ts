@@ -15,8 +15,8 @@ export const useStudents = () => {
     if (!routeId) return [];
     
     try {
-      const response = await getStudentsByRoute(routeId, classFilter);
-      return response.data;
+      const students = await getStudentsByRoute(routeId, classFilter);
+      return students;
     } catch (err: any) {
       const errorMessage = err.response?.data?.message || "Failed to fetch students";
       toast.error(errorMessage);
@@ -32,7 +32,7 @@ export const useStudents = () => {
       const queryKey = ['students', variables.routeId];
       queryClient.setQueryData(queryKey, (oldStudents: IStudent[] = []) => [
         ...oldStudents,
-        newStudent.data
+        newStudent
       ]);
       toast.success("Student added successfully");
     },
@@ -85,7 +85,7 @@ export const useStudentsByRoute = (routeId: string, classFilter?: number) => {
     queryKey: ['students', routeId, classFilter],
     queryFn: () => {
       if (!routeId) return [];
-      return getStudentsByRoute(routeId, classFilter).then(response => response.data);
+      return getStudentsByRoute(routeId, classFilter);
     },
     enabled: !!routeId, 
     staleTime: 2 * 60 * 1000, 

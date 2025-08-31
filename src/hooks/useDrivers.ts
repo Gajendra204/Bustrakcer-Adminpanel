@@ -16,10 +16,7 @@ export const useDrivers = () => {
     refetch: refetchDrivers
   } = useQuery({
     queryKey: ['drivers'],
-    queryFn: async () => {
-      const response = await getAllDrivers();
-      return response.data || [];
-    },
+    queryFn: getAllDrivers,
   });
 
   // Create Driver
@@ -28,7 +25,7 @@ export const useDrivers = () => {
     onSuccess: (newDriver) => {
       queryClient.setQueryData(['drivers'], (oldDrivers: IDriver[] = []) => [
         ...oldDrivers,
-        newDriver.data
+        newDriver
       ]);
       toast.success("Driver added");
     },
@@ -43,7 +40,7 @@ export const useDrivers = () => {
       updateDriver(id, data),
     onSuccess: (updatedDriver, variables) => {
       queryClient.setQueryData(['drivers'], (oldDrivers: IDriver[] = []) =>
-        oldDrivers.map(driver => driver._id === variables.id ? updatedDriver.data : driver)
+        oldDrivers.map(driver => driver._id === variables.id ? updatedDriver : driver)
       );
       toast.success("Driver updated successfully");
     },

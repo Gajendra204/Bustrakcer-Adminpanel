@@ -11,10 +11,7 @@ export const useDashboard = () => {
     error: busesError
   } = useQuery({
     queryKey: ['buses'],
-    queryFn: async () => {
-      const response = await getAllBuses();
-      return response.data || [];
-    },
+    queryFn: getAllBuses
   });
 
   // Fetch Drivers Count
@@ -24,10 +21,7 @@ export const useDashboard = () => {
     error: driversError
   } = useQuery({
     queryKey: ['drivers'],
-    queryFn: async () => {
-      const response = await getAllDrivers();
-      return response.data || [];
-    },
+    queryFn: getAllDrivers
   });
 
   // Fetch Routes Count
@@ -37,10 +31,7 @@ export const useDashboard = () => {
     error: routesError
   } = useQuery({
     queryKey: ['routes'],
-    queryFn: async () => {
-      const response = await getAllRoutes();
-      return response.data || [];
-    },
+    queryFn: getAllRoutes
   });
 
   return {

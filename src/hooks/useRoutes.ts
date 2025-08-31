@@ -28,18 +28,15 @@ export const useRoutes = () => {
     refetch: refetchRoutes
   } = useQuery({
     queryKey: ['routes'],
-    queryFn: async () => {
-      const response = await getAllRoutes();
-      return response.data || [];
-    },
+    queryFn: getAllRoutes
   });
 
   //Fetch Single Route by ID
   const fetchRouteById = async (id: string) => {
     try {
-      const response = await getRouteById(id);
-      setCurrentRoute(response.data);
-      return response.data;
+      const route = await getRouteById(id);
+      setCurrentRoute(route);
+      return route;
     } catch (error) {
       toast.error("Failed to fetch route");
       throw error;
@@ -52,7 +49,7 @@ export const useRoutes = () => {
     onSuccess: (newRoute) => {
       queryClient.setQueryData(['routes'], (oldRoutes: IRoute[] = []) => [
         ...oldRoutes,
-        newRoute.data
+        newRoute
       ]);
       toast.success("Route created successfully");
     },
@@ -67,7 +64,7 @@ export const useRoutes = () => {
       updateRoute(id, routeData),
     onSuccess: (updatedRoute, variables) => {
       queryClient.setQueryData(['routes'], (oldRoutes: IRoute[] = []) =>
-        oldRoutes.map(route => route._id === variables.id ? updatedRoute.data : route)
+        oldRoutes.map(route => route._id === variables.id ? updatedRoute : route)
       );
       toast.success("Route updated successfully");
     },
@@ -96,7 +93,7 @@ export const useRoutes = () => {
       assignBusToRoute(routeId, busData),
     onSuccess: (updatedRoute, variables) => {
       queryClient.setQueryData(['routes'], (oldRoutes: IRoute[] = []) =>
-        oldRoutes.map(route => route._id === variables.routeId ? updatedRoute.data : route)
+        oldRoutes.map(route => route._id === variables.routeId ? updatedRoute : route)
       );
       toast.success("Bus assigned to route successfully");
     },
