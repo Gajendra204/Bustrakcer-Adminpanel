@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Home, Bus, Users, MapPin, Menu, X, UserPlus } from "lucide-react";
+import { Home, Bus, Users, MapPin, Menu, X } from "lucide-react";
 
 const Sidebar = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -10,7 +10,6 @@ const Sidebar = () => {
     { id: "drivers", label: "Drivers", icon: Users, path: "/drivers" },
     { id: "buses", label: "Buses", icon: Bus, path: "/buses" },
     { id: "routes", label: "Routes", icon: MapPin, path: "/routes" },
-    { id: "parents", label: "Parents", icon: UserPlus, path: "/parents" },
   ];
 
   return (
