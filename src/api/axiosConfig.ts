@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { type AxiosRequestHeaders } from "axios";
 
 export const API_BASE_URL = "http://localhost:5000/api";
 //const API_BASE_URL = "https://api-bus-tracker.onrender.com/api";
@@ -11,7 +11,7 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("busTrackerAdminToken");
     if (token) {
-      config.headers = config.headers || {};
+      config.headers = (config.headers || {}) as AxiosRequestHeaders;
       config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
