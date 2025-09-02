@@ -13,7 +13,6 @@ import HomePage from "./pages/HomePage";
 import BusesPage from "./pages/BusesPage";
 import DriversPage from "./pages/DriversPage";
 import BusRoutesPage from "./pages/BusRoutesPage";
-import ProfilePage from "./pages/ProfilePage";
 import StudentsByRoute from "./components/Routes/StudentsByRoute/StudentsByRoute";
 
 function App() {
@@ -36,7 +35,6 @@ function App() {
           <Route path="buses" element={<BusesPage />} />
           <Route path="drivers" element={<DriversPage />} />
           <Route path="routes" element={<BusRoutesPage />} />
-          <Route path="profile" element={<ProfilePage />} />
           <Route
             path="routes/:routeId/students"
             element={<StudentsByRoute />}
