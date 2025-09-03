@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
 import { MapLocationPicker } from "../../MapLocationPicker/MapLocationPicker";
+import {routeFormStyles } from "./routeForm.styles";
 
 interface RouteFormProps {
   onCancel: () => void;
@@ -66,30 +67,30 @@ const RouteForm = ({ onCancel, onSubmit }: RouteFormProps) => {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center z-[100]"
+      className={routeFormStyles.overlay}
       style={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
     >
-      <div className="bg-white rounded-lg p-6 w-full max-w-2xl overflow-y-auto max-h-screen">
-        <h2 className="text-xl font-bold mb-4">Add New Route</h2>
-        <form onSubmit={handleFormSubmit} className="space-y-4">
+      <div className={routeFormStyles.container}>
+        <h2 className={routeFormStyles.title}>Add New Route</h2>
+        <form onSubmit={handleFormSubmit} className={routeFormStyles.form}>
           <input
             type="text"
             name="name"
             value={formData.name}
             onChange={handleChange}
             placeholder="Enter route name"
-            className="w-full px-3 py-2 border rounded-lg"
+            className={routeFormStyles.input}
             required
           />
 
           {formData.stops.map((stop, index) => (
-            <div key={index} className="border p-4 rounded space-y-2">
-              <div className="flex justify-between items-center">
-                <h3 className="font-semibold">Stop {index + 1}</h3>
+            <div key={index} className={routeFormStyles.stopContainer}>
+              <div className={routeFormStyles.stopHeader}>
+                <h3 className={routeFormStyles.stopTitle}>Stop {index + 1}</h3>
                 {formData.stops.length > 1 && (
                   <button
                     type="button"
-                    className="text-red-500 text-sm"
+                    className={routeFormStyles.removeButton}
                     onClick={() => removeStop(index)}
                   >
                     Remove
@@ -103,7 +104,7 @@ const RouteForm = ({ onCancel, onSubmit }: RouteFormProps) => {
                 onChange={(e) =>
                   handleStopChange(index, "name", e.target.value)
                 }
-                className="w-full px-3 py-2 border rounded-lg"
+                className={routeFormStyles.input}
                 required
               />
               <MapLocationPicker
@@ -122,7 +123,7 @@ const RouteForm = ({ onCancel, onSubmit }: RouteFormProps) => {
                 onChange={(e) =>
                   handleStopChange(index, "order", e.target.value)
                 }
-                className="w-full px-3 py-2 border rounded-lg"
+                className={routeFormStyles.inputNumber}
                 required
                 min={0}
               />
@@ -132,22 +133,19 @@ const RouteForm = ({ onCancel, onSubmit }: RouteFormProps) => {
           <button
             type="button"
             onClick={addStop}
-            className="text-sm flex items-center text-gray-700"
+            className={routeFormStyles.addStopButton}
           >
-            <Plus className="w-4 h-4 mr-1" /> Add Stop
+            <Plus className={routeFormStyles.addStopIcon} /> Add Stop
           </button>
 
-          <div className="flex space-x-3 pt-4">
-            <button
-              type="submit"
-              className="flex-1 bg-gray-900 text-white py-2 px-4 rounded-lg"
-            >
+          <div className={routeFormStyles.actionContainer}>
+            <button type="submit" className={routeFormStyles.submitButton}>
               Add Route
             </button>
             <button
               type="button"
               onClick={onCancel}
-              className="flex-1 bg-gray-300 text-gray-700 py-2 px-4 rounded-lg"
+              className={routeFormStyles.cancelButton}
             >
               Cancel
             </button>

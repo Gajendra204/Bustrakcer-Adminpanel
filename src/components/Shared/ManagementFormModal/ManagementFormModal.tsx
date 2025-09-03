@@ -1,5 +1,6 @@
 import React from "react";
-import { ModalActions } from "./ModalActions";
+import { ModalActions } from "../ModalActions";
+import { modalStyles } from "./managementFormModal.styles";
 
 interface Field {
   label: string;
@@ -38,25 +39,24 @@ const ManagementFormModal: React.FC<ManagementFormModalProps> = ({
   cancelText = "Cancel",
 }) => {
   if (!open) return null;
+
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center z-[100]"
+      className={modalStyles.overlay}
       style={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
     >
-      <div className="bg-white rounded-lg p-6 w-full max-w-md">
-        <h2 className="text-xl font-bold mb-4">{title}</h2>
-        <form onSubmit={onSubmit} className="space-y-4">
+      <div className={modalStyles.container}>
+        <h2 className={modalStyles.title}>{title}</h2>
+        <form onSubmit={onSubmit} className={modalStyles.form}>
           {fields.map((field) =>
             field.type === "select" ? (
-              <div key={field.name} className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  {field.label}
-                </label>
+              <div key={field.name} className={modalStyles.fieldContainer}>
+                <label className={modalStyles.label}>{field.label}</label>
                 <select
                   name={field.name}
                   value={formData[field.name] || ""}
                   onChange={onChange}
-                  className="w-full p-2 border rounded-md"
+                  className={modalStyles.select}
                   required={field.required}
                 >
                   <option value="">Select {field.label}</option>
@@ -68,17 +68,15 @@ const ManagementFormModal: React.FC<ManagementFormModalProps> = ({
                 </select>
               </div>
             ) : (
-              <div key={field.name} className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  {field.label}
-                </label>
+              <div key={field.name} className={modalStyles.fieldContainer}>
+                <label className={modalStyles.label}>{field.label}</label>
                 <input
                   type={field.type || "text"}
                   name={field.name}
                   value={formData[field.name] || ""}
                   onChange={onChange}
                   placeholder={field.placeholder}
-                  className="w-full p-2 border rounded-md"
+                  className={modalStyles.input}
                   required={field.required}
                 />
               </div>

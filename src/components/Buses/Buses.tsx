@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Plus } from "lucide-react";
 import { useBuses } from "../../hooks/useBuses";
 import DeleteConfirmationModal from "../Shared/DeleteConfirmationModal";
-import ManagementTable from "../Shared/ManagementTable";
-import ManagementFormModal from "../Shared/ManagementFormModal";
+import ManagementTable from "../Shared/ManagementTable/ManagementTable";
+import ManagementFormModal from "../Shared/ManagementFormModal/ManagementFormModal";
 import Button from "../Shared/Button";
 
 const Buses = () => {

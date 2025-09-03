@@ -1,4 +1,4 @@
-import ManagementTable from "../../Shared/ManagementTable";
+import ManagementTable from "../../Shared/ManagementTable/ManagementTable";
 import type { IStudent } from "../../../api/types";
 
 interface Props {

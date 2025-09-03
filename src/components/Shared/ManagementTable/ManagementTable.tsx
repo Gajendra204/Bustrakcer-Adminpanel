@@ -1,5 +1,6 @@
 import { Edit, Trash2 } from "lucide-react";
 import React from "react";
+import { tableStyles } from "./managementTable.styles";
 
 interface Column<T> {
   label: string;
@@ -25,71 +26,66 @@ function ManagementTable<T extends { _id: string }>({
   emptyText = "No items found.",
 }: ManagementTableProps<T>) {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
-      <table className="w-full">
-        <thead className="bg-gray-50">
+    <div className={tableStyles.wrapper}>
+      <table className={tableStyles.table}>
+        <thead className={tableStyles.thead}>
           <tr>
             {columns.map((col, idx) => (
-              <th
-                key={idx}
-                className={
-                  col.className ||
-                  "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                }
-              >
+              <th key={idx} className={col.className || tableStyles.th}>
                 {col.label}
               </th>
             ))}
             {(onEdit || onDelete) && (
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Actions
-              </th>
+              <th className={tableStyles.th}>Actions</th>
             )}
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody>
           {loading ? (
             <tr>
-              <td colSpan={columns.length + 1} className="text-center py-4">
+              <td
+                colSpan={columns.length + 1}
+                className={tableStyles.loadingCell}
+              >
                 Loading...
               </td>
             </tr>
           ) : items.length === 0 ? (
             <tr>
-              <td colSpan={columns.length + 1} className="text-center py-4">
+              <td
+                colSpan={columns.length + 1}
+                className={tableStyles.emptyCell}
+              >
                 {emptyText}
               </td>
             </tr>
           ) : (
             items.map((item) => (
-              <tr key={item._id} className="hover:bg-gray-50">
+              <tr key={item._id} className={tableStyles.row}>
                 {columns.map((col, idx) => (
-                  <td
-                    key={idx}
-                    className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
-                  >
+                  <td key={idx} className={tableStyles.td}>
                     {col.render(item)}
                   </td>
                 ))}
                 {(onEdit || onDelete) && (
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <td className={tableStyles.actionCell}>
                     <div className="flex space-x-3">
                       {onEdit && (
                         <button
                           onClick={() => onEdit(item)}
-                          className="text-gray-600 hover:text-gray-900 mr-3 transition-colors"
+                          className={tableStyles.editButton}
                           aria-label="Edit"
                         >
-                          <Edit className="w-4 h-4"/>
+                          <Edit className="w-4 h-4" />
                         </button>
                       )}
                       {onDelete && (
                         <button
                           onClick={() => onDelete(item)}
-                          className="text-red-600 hover:text-red-900"
+                          className={tableStyles.deleteButton}
                           aria-label="Delete"
                         >
-                          <Trash2 className="w-4 h-4"/>
+                          <Trash2 className="w-4 h-4" />
                         </button>
                       )}
                     </div>
