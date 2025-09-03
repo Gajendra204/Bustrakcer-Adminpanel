@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { UserRoundPlus } from "lucide-react";
 import { useDrivers } from "../../hooks/useDrivers";
-import DeleteConfirmationModal from "../Shared/DeleteConfirmationModal";
+import DeleteConfirmationModal from "../Shared/DeleteConfirmationModal/DeleteConfirmationModal";
 import ManagementTable from "../Shared/ManagementTable/ManagementTable";
 import ManagementFormModal from "../Shared/ManagementFormModal/ManagementFormModal";
 import Button from "../Shared/Button";

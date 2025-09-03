@@ -4,16 +4,15 @@ import { useRoutes } from "../../../hooks/useRoutes";
 import { useBuses } from "../../../hooks/useBuses";
 import Button from "../../Shared/Button";
 import RouteForm from "./RouteForm";
-import DeleteConfirmationModal from "../../Shared/DeleteConfirmationModal";
+import DeleteConfirmationModal from "../../Shared/DeleteConfirmationModal/DeleteConfirmationModal";
 import { useRouteAssignments } from "../../../hooks/useRouteAssignments";
-import RoutesTable from "./RoutesTable";
+import RoutesTable from "./RoutesTable/RoutesTable";
 import * as Sentry from "@sentry/react";
 
 const BusRoutes = () => {
   const { routes, isLoading, error, addRoute, removeRoute, assignBus } =
     useRoutes();
   const { buses, drivers, assignDriver } = useBuses();
-
   const [showAddForm, setShowAddForm] = useState(false);
   const [routeToDelete, setRouteToDelete] = useState<null | string>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -32,12 +31,11 @@ const BusRoutes = () => {
     } catch (err) {
       console.error("Failed to add route:", err);
       Sentry.captureException(err, {
-      extra: {
-      operation: "Route",
-      context: "Failed to add route"
-    }
-  });
-      
+        extra: {
+          operation: "Route",
+          context: "Failed to add route",
+        },
+      });
     }
   };
 
@@ -49,11 +47,11 @@ const BusRoutes = () => {
       } catch (err) {
         console.error("Failed to assign bus:", err);
         Sentry.captureException(err, {
-      extra: {
-      operation: "Bus",
-      context: "Failed to assign bus"
-    }
-  });
+          extra: {
+            operation: "Bus",
+            context: "Failed to assign bus",
+          },
+        });
       }
     }
   };

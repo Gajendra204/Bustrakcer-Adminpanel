@@ -6,6 +6,7 @@ export interface TableStyles {
   td: string;
   row: string;
   actionCell: string;
+  actionButtonContainer: string;
   editButton: string;
   deleteButton: string;
   loadingCell: string;
@@ -13,15 +14,16 @@ export interface TableStyles {
 }
 
 export const tableStyles: TableStyles = {
-  wrapper: "bg-white rounded-lg shadow-md overflow-hidden",
+  wrapper: "bg-white/95 backdrop-blur-sm rounded-2xl shadow-sm overflow-hidden border border-white/50",
   table: "w-full",
-  thead: "bg-gray-50",
-  th: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
-  td: "px-6 py-4 whitespace-nowrap text-sm text-gray-900",
-  row: "hover:bg-gray-50",
+  thead: "bg-gradient-to-r from-gray-900 to-gray-900",
+  th: "px-6 py-6 text-left text-xs font-bold text-white uppercase tracking-widest",
+  td: "px-6 py-6 whitespace-nowrap text-sm text-gray-900 border-b border-gray-100/50",
+  row: "hover:bg-gradient-to-r hover:from-gray-50 hover:to-blue-50 transition-all ",
   actionCell: "px-6 py-4 whitespace-nowrap text-sm font-medium",
-  editButton: "text-gray-600 hover:text-gray-900 mr-3 transition-colors",
-  deleteButton: "text-red-600 hover:text-red-900 transition-colors",
-  loadingCell: "text-center py-4",
-  emptyCell: "text-center py-4"
+  actionButtonContainer: "flex space-x-3",
+  editButton: "text-gray-600 hover:text-white hover:bg-gray-800 hover:shadow-lg hover:shadow-blue-500/25 hover:scale-110 transition-all duration-300 p-3 rounded-xl",
+  deleteButton: "text-red-600 hover:text-white hover:bg-red-600 hover:shadow-lg hover:shadow-red-500/25 hover:scale-110 transition-all duration-300 p-3 rounded-xl",
+  loadingCell: "text-center py-16 text-gray-500 text-xl font-semibold animate-pulse",
+  emptyCell: "text-center py-16 text-gray-500 text-xl font-semibold"
 };

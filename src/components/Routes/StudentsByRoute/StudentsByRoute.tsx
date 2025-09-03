@@ -7,7 +7,7 @@ import Button from "../../Shared/Button";
 import StudentForm from "./StudentForm";
 import StudentTable from "./StudentTable";
 import ClassFilterDropdown from "./ClassFilterDropdown";
-import DeleteConfirmationModal from "../../Shared/DeleteConfirmationModal";
+import DeleteConfirmationModal from "../../Shared/DeleteConfirmationModal/DeleteConfirmationModal";
 import type { IStudent } from "../../../api/types";
 
 const StudentsByRoute = () => {

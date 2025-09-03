@@ -1,5 +1,6 @@
 import React from "react";
-import RouteRow from "./RouteRow";
+import RouteRow from "../RouteRow";
+import { routesTableStyles } from "./routesTable.styles";
 
 interface RoutesTableProps {
   routes: any[];
@@ -31,34 +32,26 @@ const RoutesTable: React.FC<RoutesTableProps> = ({
   loading,
 }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md ">
-      <table className="w-full">
-        <thead className="bg-gray-50">
+    <div className={routesTableStyles.wrapper}>
+      <table className={routesTableStyles.table}>
+        <thead className={routesTableStyles.thead}>
           <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Route Name
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Stops
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Assigned Bus
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Actions
-            </th>
+            <th className={routesTableStyles.th}>Route Name</th>
+            <th className={routesTableStyles.th}>Stops</th>
+            <th className={routesTableStyles.th}>Assigned Bus</th>
+            <th className={routesTableStyles.th}>Actions</th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {loading ? (
             <tr>
-              <td colSpan={4} className="text-center py-4">
+              <td colSpan={4} className={routesTableStyles.loadingCell}>
                 Loading routes...
               </td>
             </tr>
           ) : routes?.length === 0 ? (
             <tr>
-              <td colSpan={4} className="text-center py-4">
+              <td colSpan={4} className={routesTableStyles.emptyCell}>
                 No routes found
               </td>
             </tr>
