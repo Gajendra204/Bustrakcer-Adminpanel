@@ -2,7 +2,7 @@ import axiosInstance from "./axiosConfig";
 import type { LoginData, RegisterData} from "./types";
 import * as Sentry from "@sentry/react";
 
-export const loginAdmin = async (data: LoginData) => {
+export async function loginAdmin(data: LoginData) {
   try {
     const response = await axiosInstance.post("/auth/admin/login", data);
     
@@ -21,13 +21,13 @@ export const loginAdmin = async (data: LoginData) => {
   }
 };
 
-export const registerAdmin = async (data: RegisterData) => {
+export async function registerAdmin(data: RegisterData) {
   try{
   const response = await axiosInstance.post("/auth/admin/register", data);
   return response.data;
   } catch (error) {
     console.error("Registration error", error);
-     Sentry.captureException(error);
+    Sentry.captureException(error);
     throw error;
   }
 };

@@ -1,42 +1,42 @@
 import axiosInstance from "./axiosConfig";
 import type { CreateStudentData, IStudent } from "./types";
 
-export const getStudentsByRoute = async (
+export async function getStudentsByRoute(
   routeId: string,
   classFilter?: number
-): Promise<IStudent[]> => {
+): Promise<IStudent[]> {
   const url = `/students/route/${routeId}${classFilter ? `?class=${classFilter}` : ""}`;
   const response = await axiosInstance.get<{ success: boolean; data: IStudent[] }>(url);
   return response.data.data;
-};
+}
 
-export const createStudent = async (
+export async function createStudent(
   routeId: string,
   data: CreateStudentData
-): Promise<IStudent> => {
+): Promise<IStudent> {
   const response = await axiosInstance.post<{ success: boolean; data: IStudent }>(
     `/students/route/${routeId}`,
     data
   );
   return response.data.data;
-};
+}
 
-export const updateStudent = async (
+export async function updateStudent(
   id: string,
   data: Partial<CreateStudentData>
-): Promise<IStudent> => {
+): Promise<IStudent> {
   const response = await axiosInstance.put<{ success: boolean; data: IStudent }>(
     `/students/${id}`,
     data
   );
   return response.data.data;
-};
+}
 
-export const deleteStudent = async (
+export async function deleteStudent(
   id: string
-): Promise<{ success: boolean; message: string }> => {
+): Promise<{ success: boolean; message: string }> {
   const response = await axiosInstance.delete<{ success: boolean; message: string }>(
     `/students/${id}`
   );
   return response.data;
-};
+}
