@@ -3,7 +3,7 @@ import { useDashboard } from "../../hooks/useDashboard";
 import { dashboardStyles } from "./dashboard.styles";
 
 const Dashboard = () => {
-  const { busCount, driverCount, routeCount, loading } = useDashboard();
+  const { busCount, driverCount, routeCount, studentCount, loading } = useDashboard();
 
   const stats = [
     {
@@ -26,7 +26,7 @@ const Dashboard = () => {
     },
     {
       title: "Students",
-      value: 245,
+      value: studentCount,
       icon: TrendingUp,
       bgStyle: dashboardStyles.iconOrangeBg,
     },

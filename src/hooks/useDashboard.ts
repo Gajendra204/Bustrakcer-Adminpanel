@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getAllBuses } from '../api/buses';
 import { getAllDrivers } from '../api/drivers';
 import { getAllRoutes } from '../api/routes';
+import { getAllStudents } from '../api/student';
 
 export const useDashboard = () => {
   // Fetch Buses Count
@@ -34,23 +35,37 @@ export const useDashboard = () => {
     queryFn: getAllRoutes
   });
 
+  // Fetch Students Count
+  const {
+    data: students = [],
+    isLoading: studentsLoading,
+    error: studentsError
+  } = useQuery({
+    queryKey: ['students'],
+    queryFn: getAllStudents
+  });
+
   return {
     // Counts
     busCount: buses.length,
     driverCount: drivers.length,
     routeCount: routes.length,
+    studentCount: students.length,
     
-    loading: busesLoading || driversLoading || routesLoading,
+    loading: busesLoading || driversLoading || routesLoading || studentsLoading,
     busesLoading,
     driversLoading,
     routesLoading,
+    studentsLoading,
     
     busesError,
     driversError,
     routesError,
+    studentsError,
     
     buses,
     drivers,
     routes,
+    students,
   };
-}; 
+};

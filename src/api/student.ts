@@ -1,6 +1,11 @@
 import axiosInstance from "./axiosConfig";
 import type { CreateStudentData, IStudent } from "./types";
 
+export async function getAllStudents(): Promise<IStudent[]> {
+  const response = await axiosInstance.get<{ success: boolean; data: IStudent[] }>('/students');
+  return response.data.data;
+}
+
 export async function getStudentsByRoute(
   routeId: string,
   classFilter?: number
