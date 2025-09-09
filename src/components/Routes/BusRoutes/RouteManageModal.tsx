@@ -1,5 +1,6 @@
 import React from "react";
 import { ModalActions } from "../../Shared/ModalActions";
+import { routeManageModalStyles } from "./routeManageModal.styles";
 
 interface RouteManageModalProps {
   isOpen: boolean;
@@ -27,19 +28,19 @@ const RouteManageModal: React.FC<RouteManageModalProps> = ({
   if (!isOpen) return null;
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center z-[100]"
+      className={routeManageModalStyles.overlay}
       style={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
     >
-      <div className="bg-white rounded-lg p-6 w-full max-w-md">
-        <h2 className="text-xl font-bold mb-4">Manage Route Assignment</h2>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+      <div className={routeManageModalStyles.container}>
+        <h2 className={routeManageModalStyles.title}>Manage Route Assignment</h2>
+        <div className={routeManageModalStyles.fieldContainer}>
+          <label className={routeManageModalStyles.label}>
             Bus
           </label>
           <select
             value={modalBus}
             onChange={(e) => setModalBus(e.target.value)}
-            className="w-full p-2 border rounded-md"
+            className={routeManageModalStyles.select}
           >
             <option value="">Select Bus</option>
             {buses.map((bus) => (
@@ -49,14 +50,14 @@ const RouteManageModal: React.FC<RouteManageModalProps> = ({
             ))}
           </select>
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+        <div className={routeManageModalStyles.fieldContainer}>
+          <label className={routeManageModalStyles.label}>
             Driver
           </label>
           <select
             value={modalDriver}
             onChange={(e) => setModalDriver(e.target.value)}
-            className="w-full p-2 border rounded-md"
+            className={routeManageModalStyles.select}
             disabled={!modalBus}
           >
             <option value="">Select Driver</option>

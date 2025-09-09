@@ -4,14 +4,13 @@ import {
   Settings,
   Edit,
   Trash,
-  MoreVertical,
-  MoreHorizontal,
   EllipsisVertical,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
 import RouteManageModal from "./RouteManageModal";
+import { routeRowStyles } from "./routeRow.styles";
 
 interface RouteRowProps {
   route: any;
@@ -102,10 +101,10 @@ const RouteRow = ({
 
   return (
     <>
-      <tr className="hover:bg-gray-50">
-        <td className="px-6 py-4 font-medium text-gray-900">{route.name}</td>
+      <tr className={routeRowStyles.row}>
+        <td className={routeRowStyles.cell}>{route.name}</td>
         <td
-          className="px-6 py-4 text-sm text-gray-500 cursor-pointer"
+          className={routeRowStyles.stopCell}
           onClick={() => setExpanded((prev) => !prev)}
           title="Click to expand/collapse stops"
         >
@@ -119,7 +118,7 @@ const RouteRow = ({
                 : previewStops;
             return <span>{stopsPreview}</span>;
           })()}
-          <span className="ml-2 text-xs text-gray-700">
+          <span className={routeRowStyles.stopPreview}>
             {expanded ? "▲" : "▼"}
           </span>
         </td>
@@ -137,54 +136,54 @@ const RouteRow = ({
             </div>
           </div>
         </td>
-        <td className="px-6 py-4 text-sm">
+        <td className={routeRowStyles.actionsCell}>
           <div className="relative" ref={dropdownRef}>
             <button
-              className="text-gray-600 hover:text-gray-900 px-3 py-1 rounded text-sm"
+              className={routeRowStyles.actionsButton}
               onClick={() => setIsDropdownOpen((open) => !open)}
               aria-label="Actions"
             >
               <EllipsisVertical className="w-5 h-5" />
             </button>
             {isDropdownOpen && (
-              <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg z-90">
+              <div className={routeRowStyles.dropdown}>
                 <Link
-                  className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                  className={routeRowStyles.dropdownItem}
                   to={`/routes/${route._id}/students`}
                   onClick={() => setIsDropdownOpen(false)}
                 >
-                  <Users className="w-4 h-4 inline mr-2" />
+                  <Users className={routeRowStyles.dropdownIcon} />
                   View Students
                 </Link>
                 <button
-                  className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                  className={routeRowStyles.dropdownItem}
                   onClick={() => {
                     handleManageClick();
                     setIsDropdownOpen(false);
                   }}
                 >
-                  <Settings className="w-4 h-4 inline mr-2" />
+                  <Settings className={routeRowStyles.dropdownIcon} />
                   Manage Assignments
                 </button>
                 <button
-                  className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                  className={routeRowStyles.dropdownItem}
                   onClick={() => {
                     handleRouteEdit();
                     setIsDropdownOpen(false);
                   }}
                 >
-                  <Edit className="w-4 h-4 inline mr-2" />
+                  <Edit className={routeRowStyles.dropdownIcon} />
                   Edit Route
                 </button>
-                <hr className="my-1" />
+                <hr className={routeRowStyles.dropdownSeparator} />
                 <button
-                  className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
+                  className={`${routeRowStyles.dropdownItem} text-red-600`}
                   onClick={() => {
                     handleDeleteClick();
                     setIsDropdownOpen(false);
                   }}
                 >
-                  <Trash className="w-4 h-4 inline mr-2" />
+                  <Trash className={routeRowStyles.dropdownIcon} />
                   Delete Route
                 </button>
               </div>
@@ -196,15 +195,15 @@ const RouteRow = ({
         <tr>
           <td
             colSpan={4}
-            className="bg-gray-200 px-8 py-4 border-l-4 border-gray-700"
+            className={routeRowStyles.expandedCell}
           >
             <div>
-              <span className="font-semibold text-gray-700">All Stops:</span>
-              <ul className="list-none ml-0 mt-2">
+              <span className={routeRowStyles.expandedContent}>All Stops:</span>
+              <ul className={routeRowStyles.stopList}>
                 {route.stops.map((stop: any, idx: number) => (
                   <li
                     key={idx}
-                    className="flex items-center mb-1 text-gray-900"
+                    className={routeRowStyles.stopListItem}
                   >
                     <MapPin className="w-4 h-4 mr-2 text-gray-700" />
                     <span>{stop.name}</span>

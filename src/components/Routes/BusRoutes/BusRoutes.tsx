@@ -8,6 +8,7 @@ import DeleteConfirmationModal from "../../Shared/DeleteConfirmationModal/Delete
 import { useRouteAssignments } from "../../../hooks/useRouteAssignments";
 import RoutesTable from "./RoutesTable/RoutesTable";
 import * as Sentry from "@sentry/react";
+import { busRoutesStyles } from "./busRoutes.styles";
 
 const BusRoutes = () => {
   const { routes, isLoading, error, addRoute, removeRoute, assignBus } =
@@ -85,9 +86,9 @@ const BusRoutes = () => {
   };
 
   return (
-    <div className="p-2">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">Routes Management</h1>
+    <div className={busRoutesStyles.container}>
+      <div className={busRoutesStyles.header}>
+        <h1 className={busRoutesStyles.title}>Routes Management</h1>
         <Button onClick={() => setShowAddForm(true)}>
           <Plus className="w-5 h-5 mr-2" /> Add New Route
         </Button>
@@ -109,7 +110,7 @@ const BusRoutes = () => {
       {isLoading ? (
         <p>Loading routes...</p>
       ) : error ? (
-        <p className="text-red-500">
+        <p className={busRoutesStyles.errorMessage}>
           {typeof error === "object" && error !== null && "message" in error
             ? error.message
             : error}

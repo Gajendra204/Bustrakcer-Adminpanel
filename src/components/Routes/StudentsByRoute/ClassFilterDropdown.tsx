@@ -1,3 +1,5 @@
+import { classFilterDropdownStyles } from "./classFilterDropdown.styles";
+
 interface Props {
     selectedClass: number | "";
     onChange: (value: number | "") => void;
@@ -5,8 +7,8 @@ interface Props {
   
   const ClassFilterDropdown = ({ selectedClass, onChange }: Props) => {
     return (
-      <div className="mb-6 w-full md:w-1/3">
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+      <div className={classFilterDropdownStyles.container}>
+        <label className={classFilterDropdownStyles.label}>
           Filter by Class
         </label>
         <select
@@ -14,7 +16,7 @@ interface Props {
           onChange={(e) =>
             onChange(e.target.value ? parseInt(e.target.value) : "")
           }
-          className="w-full p-2 border rounded-md"
+          className={classFilterDropdownStyles.select}
         >
           <option value="">All Classes</option>
           {[...Array(12)].map((_, i) => (
@@ -28,4 +30,3 @@ interface Props {
   };
   
   export default ClassFilterDropdown;
-  

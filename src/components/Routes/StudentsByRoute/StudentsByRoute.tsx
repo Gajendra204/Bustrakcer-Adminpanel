@@ -9,6 +9,7 @@ import StudentTable from "./StudentTable";
 import ClassFilterDropdown from "./ClassFilterDropdown";
 import DeleteConfirmationModal from "../../Shared/DeleteConfirmationModal/DeleteConfirmationModal";
 import type { IStudent } from "../../../api/types";
+import { studentsByRouteStyles } from "./studentsByRoute.styles";
 
 const StudentsByRoute = () => {
   const { routeId } = useParams();
@@ -46,7 +47,7 @@ const StudentsByRoute = () => {
   if (isLoading) return <div>Loading students...</div>;
   if (error)
     return (
-      <div className="text-red-500">
+      <div className={studentsByRouteStyles.errorMessage}>
         {typeof error === "object" && error !== null && "message" in error
           ? error.message
           : error}
@@ -55,10 +56,10 @@ const StudentsByRoute = () => {
   if (!routes || routes.length === 0) return <div>Loading routes...</div>;
 
   return (
-    <div className="p-4">
-      <div className="flex justify-between items-center mb-6">
+    <div className={studentsByRouteStyles.container}>
+      <div className={studentsByRouteStyles.header}>
         <div>
-          <h1 className="text-2xl font-bold">
+          <h1 className={studentsByRouteStyles.title}>
             Students for Route: {currentRoute?.name || "Unknown Route"}
           </h1>
         </div>

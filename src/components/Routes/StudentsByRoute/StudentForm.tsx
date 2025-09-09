@@ -3,6 +3,7 @@ import { Loader2 } from "lucide-react";
 import StudentFormFields from "./StudentFormFields";
 import { useStudentForm } from "./useStudentForm";
 import * as Sentry from "@sentry/react";
+import { studentFormStyles } from "./studentForm.styles";
 
 interface StudentFormProps {
   onCancel: () => void;
@@ -35,21 +36,21 @@ const StudentForm = ({ onCancel, onSubmit }: StudentFormProps) => {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center z-[100]  bg-opacity-70"
+      className={studentFormStyles.overlay}
       style={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
     >
-      <div className="bg-white rounded-lg p-6 w-full max-w-md">
-        <h2 className="text-xl font-bold mb-4">Add New Student</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+      <div className={studentFormStyles.container}>
+        <h2 className={studentFormStyles.title}>Add New Student</h2>
+        <form onSubmit={handleSubmit} className={studentFormStyles.form}>
           <StudentFormFields
             formData={formData}
             errors={errors}
             handleChange={handleChange}
           />
-          <div className="flex space-x-3 pt-4">
+          <div className={studentFormStyles.buttonContainer}>
             <button
               type="submit"
-              className="flex-1 bg-gray-900 text-white py-2 px-4 rounded-lg flex justify-center items-center"
+              className={studentFormStyles.submitButton}
               disabled={isSubmitting}
             >
               {isSubmitting ? (
@@ -61,7 +62,7 @@ const StudentForm = ({ onCancel, onSubmit }: StudentFormProps) => {
             <button
               type="button"
               onClick={onCancel}
-              className="flex-1 bg-gray-300 text-gray-700 py-2 px-4 rounded-lg"
+              className={studentFormStyles.cancelButton}
               disabled={isSubmitting}
             >
               Cancel
