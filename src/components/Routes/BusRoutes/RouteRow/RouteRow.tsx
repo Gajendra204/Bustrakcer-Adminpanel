@@ -9,7 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
-import RouteManageModal from "./RouteManageModal";
+import RouteManageModal from "../RouteManageModal/RouteManageModal";
 import { routeRowStyles } from "./routeRow.styles";
 
 interface RouteRowProps {
@@ -193,18 +193,12 @@ const RouteRow = ({
       </tr>
       {expanded && (
         <tr>
-          <td
-            colSpan={4}
-            className={routeRowStyles.expandedCell}
-          >
+          <td colSpan={4} className={routeRowStyles.expandedCell}>
             <div>
               <span className={routeRowStyles.expandedContent}>All Stops:</span>
               <ul className={routeRowStyles.stopList}>
                 {route.stops.map((stop: any, idx: number) => (
-                  <li
-                    key={idx}
-                    className={routeRowStyles.stopListItem}
-                  >
+                  <li key={idx} className={routeRowStyles.stopListItem}>
                     <MapPin className="w-4 h-4 mr-2 text-gray-700" />
                     <span>{stop.name}</span>
                   </li>

@@ -1,5 +1,5 @@
 import React from "react";
-import { ModalActions } from "../../Shared/ModalActions";
+import { ModalActions } from "../../../Shared/ModalActions";
 import { routeManageModalStyles } from "./routeManageModal.styles";
 
 interface RouteManageModalProps {
@@ -32,11 +32,11 @@ const RouteManageModal: React.FC<RouteManageModalProps> = ({
       style={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
     >
       <div className={routeManageModalStyles.container}>
-        <h2 className={routeManageModalStyles.title}>Manage Route Assignment</h2>
+        <h2 className={routeManageModalStyles.title}>
+          Manage Route Assignment
+        </h2>
         <div className={routeManageModalStyles.fieldContainer}>
-          <label className={routeManageModalStyles.label}>
-            Bus
-          </label>
+          <label className={routeManageModalStyles.label}>Bus</label>
           <select
             value={modalBus}
             onChange={(e) => setModalBus(e.target.value)}
@@ -51,9 +51,7 @@ const RouteManageModal: React.FC<RouteManageModalProps> = ({
           </select>
         </div>
         <div className={routeManageModalStyles.fieldContainer}>
-          <label className={routeManageModalStyles.label}>
-            Driver
-          </label>
+          <label className={routeManageModalStyles.label}>Driver</label>
           <select
             value={modalDriver}
             onChange={(e) => setModalDriver(e.target.value)}
