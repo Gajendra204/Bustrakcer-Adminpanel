@@ -9,7 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
-import RouteManageModal from "../RouteManageModal/RouteManageModal";
+import RouteManageModal from "./RouteManageModal";
 import { routeRowStyles } from "./routeRow.styles";
 
 interface RouteRowProps {

@@ -1,5 +1,5 @@
 import React from "react";
-import RouteRow from "../RouteRow/RouteRow";
+import RouteRow from "./RouteRow";
 import { routesTableStyles } from "./routesTable.styles";
 
 interface RoutesTableProps {

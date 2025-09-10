@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
-import { MapLocationPicker } from "../../../MapLocationPicker/MapLocationPicker";
-import {routeFormStyles } from "./routeForm.styles";
+import { MapLocationPicker } from "../../MapLocationPicker/MapLocationPicker";
+import { routeFormStyles } from "./routeForm.styles";
 
 interface RouteFormProps {
   onCancel: () => void;

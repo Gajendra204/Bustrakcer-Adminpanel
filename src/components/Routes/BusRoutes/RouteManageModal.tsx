@@ -1,5 +1,5 @@
 import React from "react";
-import { ModalActions } from "../../../Shared/ModalActions";
+import { ModalActions } from "../../Shared/ModalActions";
 import { routeManageModalStyles } from "./routeManageModal.styles";
 
 interface RouteManageModalProps {
