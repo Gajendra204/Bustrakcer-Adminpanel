@@ -41,24 +41,37 @@ const RouteRow = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [modalBus, setModalBus] = useState(selectedBus);
   const [modalDriver, setModalDriver] = useState(selectedDriver);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
+
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const [expanded, setExpanded] = useState(false);
 
-  // Handle clicking outside dropdown to close it
+  const handleDropdownToggle = () => {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setDropdownPosition({
+        top: rect.bottom + window.scrollY,
+        left: rect.left + window.scrollX - 150, // Adjust left position
+      });
+    }
+    setIsDropdownOpen((open) => !open);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
+        isDropdownOpen &&
         dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
+        !dropdownRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
       ) {
         setIsDropdownOpen(false);
       }
     };
 
-    if (isDropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -81,13 +94,13 @@ const RouteRow = ({
   };
 
   const handleManageModalSave = async () => {
-    // Assign the bus to the route if changed
-    if (modalBus !== selectedBus) {
-      await assignBus(route._id, { busId: modalBus });
-    }
-    // Assign the driver to the selected bus
+    // Assign the driver to the selected bus first
     if (modalBus && modalDriver) {
       await assignDriver(modalBus, modalDriver);
+    }
+    // Then, assign the bus to the route if it changed
+    if (modalBus !== selectedBus) {
+      await assignBus(route._id, { busId: modalBus });
     }
     setIsManageModalOpen(false);
   };
@@ -137,57 +150,68 @@ const RouteRow = ({
           </div>
         </td>
         <td className={routeRowStyles.actionsCell}>
-          <div className="relative" ref={dropdownRef}>
+          <div className="relative">
             <button
+              ref={buttonRef}
               className={routeRowStyles.actionsButton}
-              onClick={() => setIsDropdownOpen((open) => !open)}
+              onClick={handleDropdownToggle}
               aria-label="Actions"
             >
               <EllipsisVertical className="w-5 h-5" />
             </button>
-            {isDropdownOpen && (
-              <div className={routeRowStyles.dropdown}>
-                <Link
-                  className={routeRowStyles.dropdownItem}
-                  to={`/routes/${route._id}/students`}
-                  onClick={() => setIsDropdownOpen(false)}
-                >
-                  <Users className={routeRowStyles.dropdownIcon} />
-                  View Students
-                </Link>
-                <button
-                  className={routeRowStyles.dropdownItem}
-                  onClick={() => {
-                    handleManageClick();
-                    setIsDropdownOpen(false);
+            {isDropdownOpen &&
+              ReactDOM.createPortal(
+                <div
+                  ref={dropdownRef}
+                  className={routeRowStyles.dropdown}
+                  style={{
+                    position: "absolute",
+                    top: `${dropdownPosition.top}px`,
+                    left: `${dropdownPosition.left}px`,
                   }}
                 >
-                  <Settings className={routeRowStyles.dropdownIcon} />
-                  Manage Assignments
-                </button>
-                <button
-                  className={routeRowStyles.dropdownItem}
-                  onClick={() => {
-                    handleRouteEdit();
-                    setIsDropdownOpen(false);
-                  }}
-                >
-                  <Edit className={routeRowStyles.dropdownIcon} />
-                  Edit Route
-                </button>
-                <hr className={routeRowStyles.dropdownSeparator} />
-                <button
-                  className={`${routeRowStyles.dropdownItem} text-red-600`}
-                  onClick={() => {
-                    handleDeleteClick();
-                    setIsDropdownOpen(false);
-                  }}
-                >
-                  <Trash className={routeRowStyles.dropdownIcon} />
-                  Delete Route
-                </button>
-              </div>
-            )}
+                  <Link
+                    className={routeRowStyles.dropdownItem}
+                    to={`/routes/${route._id}/students`}
+                    onClick={() => setIsDropdownOpen(false)}
+                  >
+                    <Users className={routeRowStyles.dropdownIcon} />
+                    View Students
+                  </Link>
+                  <button
+                    className={routeRowStyles.dropdownItem}
+                    onClick={() => {
+                      handleManageClick();
+                      setIsDropdownOpen(false);
+                    }}
+                  >
+                    <Settings className={routeRowStyles.dropdownIcon} />
+                    Manage Assignments
+                  </button>
+                  <button
+                    className={routeRowStyles.dropdownItem}
+                    onClick={() => {
+                      handleRouteEdit();
+                      setIsDropdownOpen(false);
+                    }}
+                  >
+                    <Edit className={routeRowStyles.dropdownIcon} />
+                    Edit Route
+                  </button>
+                  <hr className={routeRowStyles.dropdownSeparator} />
+                  <button
+                    className={`${routeRowStyles.dropdownItem} text-red-600`}
+                    onClick={() => {
+                      handleDeleteClick();
+                      setIsDropdownOpen(false);
+                    }}
+                  >
+                    <Trash className={routeRowStyles.dropdownIcon} />
+                    Delete Route
+                  </button>
+                </div>,
+                document.body
+              )}
           </div>
         </td>
       </tr>

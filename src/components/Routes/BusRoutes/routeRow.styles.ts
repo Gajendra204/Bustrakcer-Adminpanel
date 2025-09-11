@@ -26,7 +26,7 @@ export const routeRowStyles: RouteRowStyles = {
   stopListItem: "flex items-center mb-1 text-gray-900",
   actionsCell: "px-6 py-4 text-sm",
   actionsButton: "text-gray-600 hover:text-gray-900 px-3 py-1 rounded text-sm",
-  dropdown: "absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg z-90",
+  dropdown: "absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg z-50",
   dropdownItem: "block w-full text-left px-4 py-2 hover:bg-gray-100",
   dropdownIcon: "w-4 h-4 inline mr-2",
   dropdownSeparator: "my-1",
